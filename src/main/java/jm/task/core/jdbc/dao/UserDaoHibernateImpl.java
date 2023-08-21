@@ -5,13 +5,9 @@ import jm.task.core.jdbc.util.Util;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    public UserDaoHibernateImpl() {
-
-    }
 
     @Override
     public void createUsersTable() {
@@ -69,13 +65,12 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users;
+        List<User> users = null;
         try (Session session = Util.getSessionFactory().openSession()) {
             users = session.createQuery("FROM User", User.class).list();
             users.forEach(System.out::println);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
         return users;
     }
